@@ -1,0 +1,33 @@
+.vbox-main {
+    -fx-background-color: linear-gradient(to bottom, -fx-primary-color, -fx-secondary-color);
+}
+
+.board-gridPane .grid-cell {
+    -fx-border-width: 1;
+    -fx-border-color: #000;
+}
+
+.board-button-border-hor{
+    -fx-border-style: solid;
+    -fx-border-width: 0 1px 0px 1px;
+    -fx-border-color: -fx-line-color;
+}
+
+.board-button-border-ver{
+    -fx-border-style: solid;
+    -fx-border-width: 1px 0px 1px 0px;
+    -fx-border-color: -fx-line-color;
+}
+
+.board-button-border-middle{
+    -fx-border-style: solid;
+    -fx-border-width: 1px 1px 1px 1px;
+    -fx-border-color: -fx-line-color;
+}
+
+.board-button {
+    -fx-background-color: transparent;
+    /*-fx-border-style: none none none none;
+    -fx-border-width: 1;
+    -fx-border-color: red;*/
+}

@@ -1,0 +1,5 @@
+* {
+    -fx-primary-color: #41C7AF;
+    -fx-secondary-color: #54E38E;
+    -fx-line-color: derive(#54E38E, 50%);
+}
