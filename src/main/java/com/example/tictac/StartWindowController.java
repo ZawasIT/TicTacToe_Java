@@ -38,6 +38,11 @@ public class StartWindowController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ticTacToe_main.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
+        stage.setMinWidth(700);
+        stage.setMinHeight(450);
+        stage.setWidth(700);
+        stage.setHeight(450);
+
         stage.setTitle("Tic Tac Toe Zawas");
         stage.setScene(scene);
         stage.show();

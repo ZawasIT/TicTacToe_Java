@@ -22,6 +22,11 @@ import java.util.ResourceBundle;
 public class TicTacToeController implements Initializable {
 
     @FXML
+    private Label scoreOLabel;
+
+    @FXML
+    private Label scoreXLabel;
+    @FXML
     public ToggleButton toggleButton1;
 
     @FXML
@@ -56,6 +61,9 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Label welcomeText;
 
+    public Stage getStage() {
+        return (Stage) ticTacToeVbox.getScene().getWindow();
+    }
 
     @FXML
     void handleSelected(ActionEvent event) throws IOException {
@@ -81,20 +89,33 @@ public class TicTacToeController implements Initializable {
         }
         toggleButton.setGraphic(imageView);
 
-        if(Game.checkResult() == 0 || Game.checkResult() == 1) {
+        if(Game.checkResult() == 0) {
+            Game.getPlayerX().increamentScore();
+            scoreXLabel.setText(String.valueOf(Game.getPlayerX().getScore()));
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load();
-
             AlertController alertController = fxmlLoader.getController();
-            alertController.setPlayerLabel((Game.checkResult() == 0) ? "Wygrywa "+Game.getPlayerX().getName() :
-                    "Wygrywa "+Game.getPlayerO().getName());
+            alertController.setPlayerLabel("Wygrywa "+Game.getPlayerX().getName());
 
             Stage alertStage = new Stage();
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
-
             alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
+            alertStage.showAndWait();
+        } else if (Game.checkResult() == 1) {
+            Game.getPlayerO().increamentScore();
+            scoreOLabel.setText(String.valueOf(Game.getPlayerO().getScore()));
 
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+            VBox alertBox = fxmlLoader.load();
+            AlertController alertController = fxmlLoader.getController();
+            alertController.setPlayerLabel("Wygrywa "+Game.getPlayerO().getName());
+
+            Stage alertStage = new Stage();
+            alertStage.setScene(new Scene(alertBox));
+            alertStage.initModality(Modality.WINDOW_MODAL);
+            alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
             alertStage.showAndWait();
         }
 

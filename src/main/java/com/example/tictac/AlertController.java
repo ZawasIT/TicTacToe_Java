@@ -3,9 +3,12 @@ package com.example.tictac;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class AlertController {
 
@@ -23,8 +26,13 @@ public class AlertController {
     }
 
     @FXML
-    void handleNewGame(ActionEvent event) {
-
+    void handleNewGame(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startWindow.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+        Game.getTicTacToeController().getStage().close();
         getStage().close();
     }
 
