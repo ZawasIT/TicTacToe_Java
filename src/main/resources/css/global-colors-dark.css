@@ -1,5 +1,12 @@
 * {
-    -fx-primary-color: #41C7AF;
-    -fx-secondary-color: #54E38E;
-    -fx-line-color: derive(#54E38E, 50%);
+    -fx-bg-color: #5344A9;
+    -fx-primary-color: #7A5197;
+    -fx-secondary-color: #BB5098;
+    -fx-third-color: #F47F6B;
+    -fx-line-color: #FFB43B;
+
+    -fx-title-color: #F5C63C;
+    -fx-font-color: #FFF;
+    -fx-font-family: Rockwell;
+
 }

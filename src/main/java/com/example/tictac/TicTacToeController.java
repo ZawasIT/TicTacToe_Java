@@ -2,41 +2,51 @@ package com.example.tictac;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
-public class TicTacToeController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    @FXML
-    private ToggleButton toggleButton1;
 
-    @FXML
-    private ToggleButton toggleButton2;
-
-    @FXML
-    private ToggleButton toggleButton3;
+public class TicTacToeController implements Initializable {
 
     @FXML
-    private ToggleButton toggleButton4;
+    public ToggleButton toggleButton1;
 
     @FXML
-    private ToggleButton toggleButton5;
+    public ToggleButton toggleButton2;
 
     @FXML
-    private ToggleButton toggleButton6;
+    public ToggleButton toggleButton3;
 
     @FXML
-    private ToggleButton toggleButton7;
+    public ToggleButton toggleButton4;
 
     @FXML
-    private ToggleButton toggleButton8;
+    public ToggleButton toggleButton5;
 
     @FXML
-    private ToggleButton toggleButton9;
+    public ToggleButton toggleButton6;
+
+    @FXML
+    public ToggleButton toggleButton7;
+
+    @FXML
+    public ToggleButton toggleButton8;
+
+    @FXML
+    public ToggleButton toggleButton9;
 
     @FXML
     private Label playerLabel;
@@ -46,97 +56,63 @@ public class TicTacToeController {
     @FXML
     private Label welcomeText;
 
-    private void checkResult() {
-        for (int row = 0; row < 3; row++) {
-            if (checkRow(row, "X")) {
-                System.out.println("Wygrana X");
-                return;
-            } else if (checkRow(row, "O")) {
-                System.out.println("Wygrana O");
-                return;
-            }
-        }
 
-        for (int col = 0; col < 3; col++) {
-            if (checkColumn(col, "X")) {
-                System.out.println("Wygrana X");
-                return;
-            } else if (checkColumn(col, "O")) {
-                System.out.println("Wygrana O");
-                return;
-            }
-        }
-
-        if (checkDiagonal("X")) {
-            System.out.println("Wygrana X");
-        } else if (checkDiagonal("O")) {
-            System.out.println("Wygrana O");
-        }
-    }
-
-    private boolean checkRow(int row, String player) {
-        return toggleButton(row, 0).getId().equals(player) &&
-                toggleButton(row, 1).getId().equals(player) &&
-                toggleButton(row, 2).getId().equals(player);
-    }
-
-    private boolean checkColumn(int col, String player) {
-        return toggleButton(0, col).getId().equals(player) &&
-                toggleButton(1, col).getId().equals(player) &&
-                toggleButton(2, col).getId().equals(player);
-    }
-
-    private boolean checkDiagonal(String player) {
-        return toggleButton(0, 0).getId().equals(player) &&
-                toggleButton(1, 1).getId().equals(player) &&
-                toggleButton(2, 2).getId().equals(player) ||
-                toggleButton(0, 2).getId().equals(player) &&
-                        toggleButton(1, 1).getId().equals(player) &&
-                        toggleButton(2, 0).getId().equals(player);
-    }
-
-    private ToggleButton toggleButton(int row, int col) {
-        switch (row * 3 + col) {
-            case 0: return toggleButton1;
-            case 1: return toggleButton2;
-            case 2: return toggleButton3;
-            case 3: return toggleButton4;
-            case 4: return toggleButton5;
-            case 5: return toggleButton6;
-            case 6: return toggleButton7;
-            case 7: return toggleButton8;
-            case 8: return toggleButton9;
-            default: throw new IllegalArgumentException("Nieprawidłowe indeksy row i col");
-        }
-    }
-    private boolean player = true;
     @FXML
-    void handleSelected(ActionEvent event) {
+    void handleSelected(ActionEvent event) throws IOException {
         ToggleButton toggleButton = (ToggleButton) event.getSource();
         System.out.println(toggleButton.getId());
         System.out.println("klik");
         ImageView imageView = new ImageView();
 
-        if (player) {
-            imageView.setImage(new Image(getClass().getResource("/img/circle1.png").toString()));
-            player = false;
-            playerLabel.setText("X");
+        if (Game.player) {
+            imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/circle.png"))));
+            Game.player = false;
+            playerLabel.setText("Player X, make your move!");
             toggleButton.setId("O");
-            checkResult();
+            Game.checkResult();
         } else {
-            imageView.setImage(new Image(getClass().getResource("/img/cross1.png").toString()));
-            player = true;
-            playerLabel.setText("O");
+            imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/cross.png"))));
+            Game.player = true;
+            playerLabel.setText("Player O, its your turn!");
             toggleButton.setId("X");
-            checkResult();
+            Game.checkResult();
         }
-
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
-
         toggleButton.setGraphic(imageView);
 
-        toggleButton.setDisable(true);
+        if(Game.checkResult() == 0 || Game.checkResult() == 1) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+            VBox alertBox = fxmlLoader.load();
+
+            AlertController alertController = fxmlLoader.getController();
+            alertController.setPlayerLabel((Game.checkResult() == 0) ? "Wygrywa X!" : "Wygrywa O!");
+
+            Stage alertStage = new Stage();
+            alertStage.setScene(new Scene(alertBox));
+            alertStage.initModality(Modality.WINDOW_MODAL);
+
+            alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
+
+            alertStage.showAndWait();
+        }
+
+
+        if(Game.checkDraw()) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
+            VBox alertBox = fxmlLoader.load(); // Wczytaj VBox z pliku FXML
+
+            // Pobierz kontroler z FXMLLoadera, aby przekazać wynik
+            AlertController alertController = fxmlLoader.getController();
+            alertController.setPlayerLabel("Remis!!!");
+
+            Stage alertStage = new Stage();
+            alertStage.setScene(new Scene(alertBox));
+            alertStage.initModality(Modality.WINDOW_MODAL);
+            alertStage.showAndWait();
+        }
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Game.setTicTacToeController(this);
+    }
 }

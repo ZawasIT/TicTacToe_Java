@@ -1,12 +1,13 @@
-.vbox-main {
-    -fx-background-color: linear-gradient(to bottom, -fx-primary-color, -fx-secondary-color);
+.vbox-left {
+    /*-fx-background-color: linear-gradient(to bottom, -fx-primary-color, -fx-secondary-color);*/
+    -fx-background-color: -fx-primary-color;
 }
 
-.board-gridPane .grid-cell {
-    -fx-border-width: 1;
-    -fx-border-color: #000;
+.board-button {
+    -fx-background-color: transparent;
 }
 
+/* border button-ów w GridPane */
 .board-button-border-hor{
     -fx-border-style: solid;
     -fx-border-width: 0 1px 0px 1px;
@@ -25,9 +26,36 @@
     -fx-border-color: -fx-line-color;
 }
 
-.board-button {
-    -fx-background-color: transparent;
-    /*-fx-border-style: none none none none;
-    -fx-border-width: 1;
-    -fx-border-color: red;*/
+.vbox-right {
+    -fx-background-color: -fx-bg-color;
+}
+
+.label-title {
+    -fx-text-fill:  -fx-title-color;
+    -fx-font-size: 30;
+}
+
+.label-player {
+    -fx-text-fill:  -fx-title-color;
+    -fx-font-size: 18;
+}
+
+.label-score {
+    -fx-text-fill:  -fx-font-color;
+    -fx-font-size: 17;
+}
+
+.label-draw {
+    -fx-text-fill:  -fx-font-color;
+    -fx-font-size: 20;
+}
+
+.label-games {
+    -fx-text-fill:  -fx-font-color;
+    -fx-font-size: 16;
+}
+
+.label-turn {
+    -fx-text-fill:  -fx-title-color;
+    -fx-font-size: 16;
 }

@@ -1,0 +1,8 @@
+.vbox-alert {
+    -fx-background-color: -fx-primary-color;
+}
+
+.label-win {
+    -fx-text-fill:  -fx-font-color;
+    -fx-font-size: 17;
+}
