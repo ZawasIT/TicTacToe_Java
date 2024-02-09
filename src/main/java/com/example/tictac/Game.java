@@ -2,9 +2,25 @@ package com.example.tictac;
 
 import javafx.scene.control.ToggleButton;
 
+import java.io.IOException;
+
 public class Game {
 
     private static TicTacToeController ticTacToeController;
+    private static Player playerO;
+    private static Player playerX;
+
+    public static void initializePlayer(String nameX, String nameO) {
+        playerX = new Player(nameX);
+        playerO = new Player(nameO);
+    }
+    public static Player getPlayerX() {
+        return playerX;
+    }
+
+    public static Player getPlayerO() {
+        return playerO;
+    }
 
     public static TicTacToeController getTicTacToeController() {
         return ticTacToeController;
@@ -17,29 +33,94 @@ public class Game {
     public static void initBoard() {
         ticTacToeController.toggleButton1.setGraphic(null);
         ticTacToeController.toggleButton1.setId("toggleButton1");
+        ticTacToeController.toggleButton1.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         ticTacToeController.toggleButton2.setGraphic(null);
         ticTacToeController.toggleButton2.setId("toggleButton2");
+        ticTacToeController.toggleButton2.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton3.setGraphic(null);
         ticTacToeController.toggleButton3.setId("toggleButton3");
+        ticTacToeController.toggleButton3.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
 
         ticTacToeController.toggleButton4.setGraphic(null);
         ticTacToeController.toggleButton4.setId("toggleButton4");
+        ticTacToeController.toggleButton4.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton5.setGraphic(null);
         ticTacToeController.toggleButton5.setId("toggleButton5");
+        ticTacToeController.toggleButton5.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton6.setGraphic(null);
         ticTacToeController.toggleButton6.setId("toggleButton6");
+        ticTacToeController.toggleButton6.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton7.setGraphic(null);
         ticTacToeController.toggleButton7.setId("toggleButton7");
+        ticTacToeController.toggleButton7.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton8.setGraphic(null);
         ticTacToeController.toggleButton8.setId("toggleButton8");
+        ticTacToeController.toggleButton8.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         ticTacToeController.toggleButton9.setGraphic(null);
         ticTacToeController.toggleButton9.setId("toggleButton9");
+        ticTacToeController.toggleButton9.setOnAction(event -> {
+            try {
+                ticTacToeController.handleSelected(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
     public static boolean checkDraw() {

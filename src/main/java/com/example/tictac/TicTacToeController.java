@@ -67,14 +67,16 @@ public class TicTacToeController implements Initializable {
         if (Game.player) {
             imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/circle.png"))));
             Game.player = false;
-            playerLabel.setText("Player X, make your move!");
+            playerLabel.setText(Game.getPlayerX().getName() + ", make your move!");
             toggleButton.setId("O");
+            toggleButton.setOnAction(null);
             Game.checkResult();
         } else {
             imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/cross.png"))));
             Game.player = true;
-            playerLabel.setText("Player O, its your turn!");
+            playerLabel.setText(Game.getPlayerO().getName() + ", its your turn!");
             toggleButton.setId("X");
+            toggleButton.setOnAction(null);
             Game.checkResult();
         }
         toggleButton.setGraphic(imageView);
@@ -84,7 +86,8 @@ public class TicTacToeController implements Initializable {
             VBox alertBox = fxmlLoader.load();
 
             AlertController alertController = fxmlLoader.getController();
-            alertController.setPlayerLabel((Game.checkResult() == 0) ? "Wygrywa X!" : "Wygrywa O!");
+            alertController.setPlayerLabel((Game.checkResult() == 0) ? "Wygrywa "+Game.getPlayerX().getName() :
+                    "Wygrywa "+Game.getPlayerO().getName());
 
             Stage alertStage = new Stage();
             alertStage.setScene(new Scene(alertBox));

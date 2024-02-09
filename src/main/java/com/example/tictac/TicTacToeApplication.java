@@ -15,6 +15,7 @@ public class TicTacToeApplication extends Application {
         stage.setTitle("Tic Tac Toe");
         stage.setScene(scene);
         stage.show();
+        Game.initializePlayer("Agata", "Szymon");
     }
 
     public static void main(String[] args) {
