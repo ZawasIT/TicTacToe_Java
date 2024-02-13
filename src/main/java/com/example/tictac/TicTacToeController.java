@@ -22,10 +22,15 @@ import java.util.ResourceBundle;
 public class TicTacToeController implements Initializable {
 
     @FXML
+    private ToggleButton modeToggleButton;
+
+    @FXML
     private Label scoreOLabel;
 
     @FXML
     private Label scoreXLabel;
+    @FXML
+    private Label scoreDrawLabel;
     @FXML
     public ToggleButton toggleButton1;
 
@@ -121,6 +126,8 @@ public class TicTacToeController implements Initializable {
 
 
         if(Game.checkDraw()) {
+            Game.incrementScoreDraw();
+            scoreDrawLabel.setText(String.valueOf(Game.getScoreDraw()));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load(); // Wczytaj VBox z pliku FXML
 
@@ -135,8 +142,30 @@ public class TicTacToeController implements Initializable {
         }
     }
 
+
+    @FXML
+    void handleToggleButton(ActionEvent event) {
+        changeMode();
+    }
+
+    private void changeMode() {
+        if (modeToggleButton.isSelected()) {
+            ticTacToeVbox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-light" +
+                    ".css")));
+            ticTacToeVbox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-dark.css")));
+            modeToggleButton.setSelected(true);
+
+        } else {
+            ticTacToeVbox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-dark" +
+                    ".css")));
+            ticTacToeVbox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
+            modeToggleButton.setSelected(false);
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Game.setTicTacToeController(this);
+        modeToggleButton.setSelected(true);
     }
 }
