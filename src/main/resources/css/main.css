@@ -66,5 +66,8 @@
 
     -fx-border-color: -fx-line-color;
     -fx-border-radius: 25;
+}
 
+.mode-toggleButton:hover {
+    -fx-background-color: derive(-fx-line-color, -15%);
 }

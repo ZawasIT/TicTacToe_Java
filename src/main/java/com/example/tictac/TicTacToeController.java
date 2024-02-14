@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 
@@ -23,6 +24,30 @@ public class TicTacToeController implements Initializable {
 
     @FXML
     private ToggleButton modeToggleButton;
+
+    @FXML
+    private ToggleButton languageToggleButton;
+
+    @FXML
+    private Label playerOLabel;
+
+    @FXML
+    private Label playerXLabel;
+
+    @FXML
+    private Label playerTurnLabel;
+
+    @FXML
+    private Label scoreLabel1;
+
+    @FXML
+    private Label scoreLabel2;
+
+    @FXML
+    private Label drawScoreLabel;
+
+    @FXML
+    private Label numberOfGamesLabel;
 
     @FXML
     private Label scoreOLabel;
@@ -80,14 +105,29 @@ public class TicTacToeController implements Initializable {
         if (Game.player) {
             imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/circle.png"))));
             Game.player = false;
-            playerLabel.setText(Game.getPlayerX().getName() + ", make your move!");
+            playerLabel.setText(Game.getPlayerX().getName());
+            if(languageToggleButton.isSelected()) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("en", Locale.getDefault());
+                playerTurnLabel.setText(resourceBundle.getString("playerXTurnLabelText"));
+            } else {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("pl", Locale.getDefault());
+                playerTurnLabel.setText(resourceBundle.getString("playerXTurnLabelText"));
+            }
+
             toggleButton.setId("O");
             toggleButton.setOnAction(null);
             Game.checkResult();
         } else {
             imageView.setImage(new Image(String.valueOf(getClass().getResource("/img/cross.png"))));
             Game.player = true;
-            playerLabel.setText(Game.getPlayerO().getName() + ", its your turn!");
+            playerLabel.setText(Game.getPlayerO().getName());
+            if(languageToggleButton.isSelected()) {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("en", Locale.getDefault());
+                playerTurnLabel.setText(resourceBundle.getString("playerOTurnLabelText"));
+            } else {
+                ResourceBundle resourceBundle = ResourceBundle.getBundle("pl", Locale.getDefault());
+                playerTurnLabel.setText(resourceBundle.getString("playerOTurnLabelText"));
+            }
             toggleButton.setId("X");
             toggleButton.setOnAction(null);
             Game.checkResult();
@@ -163,9 +203,41 @@ public class TicTacToeController implements Initializable {
         }
     }
 
+    @FXML
+    void changeLanguage(ActionEvent event) {
+        if(languageToggleButton.isSelected()) {
+            setLanguage("en");
+        } else {
+            setLanguage("pl");
+        }
+    }
+
+    private void setLanguage(String language) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(language, Locale.getDefault());
+        playerXLabel.setText(resourceBundle.getString("playerXLabelText"));
+        playerOLabel.setText(resourceBundle.getString("playerOLabelText"));
+        scoreLabel1.setText(resourceBundle.getString("scoreLabel1Text"));
+        scoreLabel2.setText(resourceBundle.getString("scoreLabel2Text"));
+        drawScoreLabel.setText(resourceBundle.getString("drawScoreLabelText"));
+        numberOfGamesLabel.setText(resourceBundle.getString("numberOfGamesLabelText"));
+
+        if(Game.player) {
+            playerTurnLabel.setText(resourceBundle.getString("playerOTurnLabelText"));
+        } else {
+            playerTurnLabel.setText(resourceBundle.getString("playerXTurnLabelText"));
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Game.setTicTacToeController(this);
         modeToggleButton.setSelected(true);
+        if(Game.player) {
+            playerLabel.setText(Game.getPlayerO().getName());
+        } else {
+            playerLabel.setText(Game.getPlayerX().getName());
+        }
+
+        languageToggleButton.setSelected(true);
     }
 }
