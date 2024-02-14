@@ -1,0 +1,17 @@
+* {
+    -fx-bg-color: #5344A9;
+    -fx-primary-color: #7A5197;
+    -fx-secondary-color: #BB5098;
+    -fx-third-color: #F47F6B;
+    -fx-line-color: #FFB43B;
+
+    -fx-bg-color: #F5C63C;
+    -fx-primary-color: #FFB32B;
+    -fx-secondary-color: #F47F6B;
+    -fx-third-color: #BB5098;
+    -fx-line-color: #7A5197;
+
+    -fx-title-color: #7A5197;
+    -fx-font-color: #FFF;
+    -fx-font-family: Rockwell;
+}
