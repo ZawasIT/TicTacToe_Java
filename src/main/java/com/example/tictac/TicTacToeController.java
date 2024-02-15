@@ -26,7 +26,7 @@ public class TicTacToeController implements Initializable {
     private ToggleButton modeToggleButton;
 
     @FXML
-    private ToggleButton languageToggleButton;
+    public ToggleButton languageToggleButton;
 
     @FXML
     private Label playerOLabel;
@@ -49,6 +49,8 @@ public class TicTacToeController implements Initializable {
     @FXML
     private Label numberOfGamesLabel;
 
+    @FXML
+    private Label numberGamesLabel;
     @FXML
     private Label scoreOLabel;
 
@@ -136,7 +138,9 @@ public class TicTacToeController implements Initializable {
 
         if(Game.checkResult() == 0) {
             Game.getPlayerX().increamentScore();
+            Game.incrementNumberOfGames();
             scoreXLabel.setText(String.valueOf(Game.getPlayerX().getScore()));
+            numberGamesLabel.setText(String.valueOf(Game.getNumberOfGames()));
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load();
@@ -150,17 +154,27 @@ public class TicTacToeController implements Initializable {
                 alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
             }
             AlertController alertController = fxmlLoader.getController();
-            alertController.setPlayerLabel("Wygrywa "+Game.getPlayerX().getName());
 
             Stage alertStage = new Stage();
-            alertStage.setTitle("Wygrana " + Game.getPlayerX().getName());
+            if(languageToggleButton.isSelected()){
+                alertStage.setTitle("Winning " + Game.getPlayerX().getName());
+                alertController.setPlayerLabel("Winning "+Game.getPlayerX().getName());
+
+            } else {
+                alertStage.setTitle("Wygrana " + Game.getPlayerX().getName());
+                alertController.setPlayerLabel("Wygrywa "+Game.getPlayerX().getName());
+
+            }
+            alertStage.getIcons().add(new Image(getClass().getResource("/img/logo.png").toExternalForm()));
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
             alertStage.showAndWait();
         } else if (Game.checkResult() == 1) {
             Game.getPlayerO().increamentScore();
+            Game.incrementNumberOfGames();
             scoreOLabel.setText(String.valueOf(Game.getPlayerO().getScore()));
+            numberGamesLabel.setText(String.valueOf(Game.getNumberOfGames()));
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load();
@@ -174,9 +188,18 @@ public class TicTacToeController implements Initializable {
                 alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
             }
             AlertController alertController = fxmlLoader.getController();
-            alertController.setPlayerLabel("Wygrywa "+Game.getPlayerO().getName());
             Stage alertStage = new Stage();
-            alertStage.setTitle("Wygrana " + Game.getPlayerO().getName());
+
+            if(languageToggleButton.isSelected()){
+                alertStage.setTitle("Winning " + Game.getPlayerO().getName());
+                alertController.setPlayerLabel("Winning "+Game.getPlayerO().getName());
+
+            } else {
+                alertStage.setTitle("Wygrana " + Game.getPlayerO().getName());
+                alertController.setPlayerLabel("Wygrana "+Game.getPlayerO().getName());
+
+            }
+            alertStage.getIcons().add(new Image(getClass().getResource("/img/logo.png").toExternalForm()));
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
@@ -186,7 +209,11 @@ public class TicTacToeController implements Initializable {
 
         if(Game.checkDraw()) {
             Game.incrementScoreDraw();
+            Game.incrementNumberOfGames();
+
             scoreDrawLabel.setText(String.valueOf(Game.getScoreDraw()));
+            numberGamesLabel.setText(String.valueOf(Game.getNumberOfGames()));
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load(); // Wczytaj VBox z pliku FXML
             if (modeToggleButton.isSelected()) {
@@ -199,10 +226,17 @@ public class TicTacToeController implements Initializable {
                 alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
             }
             AlertController alertController = fxmlLoader.getController();
-            alertController.setPlayerLabel("Remis!!!");
 
             Stage alertStage = new Stage();
-            alertStage.setTitle("Remis Tic Tac Toe");
+            if(languageToggleButton.isSelected()){
+                alertStage.setTitle("Draw Tic Tac Toe");
+                alertController.setPlayerLabel("Draw!!!");
+
+            } else {
+                alertStage.setTitle("Remis Tic Tac Toe");
+                alertController.setPlayerLabel("Remis!!!");
+            }
+            alertStage.getIcons().add(new Image(getClass().getResource("/img/logo.png").toExternalForm()));
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.showAndWait();
@@ -258,6 +292,7 @@ public class TicTacToeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         Game.setTicTacToeController(this);
+        GlobalVar.setLanguageToggleButton(languageToggleButton);
         modeToggleButton.setSelected(true);
         if(Game.player) {
             playerLabel.setText(Game.getPlayerO().getName());

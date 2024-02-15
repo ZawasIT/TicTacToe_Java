@@ -3,14 +3,21 @@ package com.example.tictac;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
-public class AlertController {
+public class AlertController implements Initializable {
+
+    @FXML
+    private Label winLabel;
 
     @FXML
     private Label playerLabel;
@@ -46,4 +53,19 @@ public class AlertController {
         playerLabel.setText(playerLabelText);
     }
 
+    private void setLanguage(String language) {
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(language, Locale.getDefault());
+//        winLabel.setText(resourceBundle.getString("winLabelText"));
+        nextGameButton.setText(resourceBundle.getString("nextGameButtonText"));
+        newGameButton.setText(resourceBundle.getString("newGameButtonText"));
+    }
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        if(GlobalVar.getLanguageToggleButton().isSelected()) {
+            setLanguage("en");
+        } else {
+            setLanguage("pl");
+        }
+    }
 }

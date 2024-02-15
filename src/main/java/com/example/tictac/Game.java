@@ -10,8 +10,15 @@ public class Game {
     private static Player playerO;
     private static Player playerX;
 
-
+    private static int numberOfGames = 0;
     private static Integer scoreDraw = 0;
+
+    public static void incrementNumberOfGames() {
+        Game.numberOfGames++;
+    }
+    public static int getNumberOfGames() {
+        return numberOfGames;
+    }
     public static void incrementScoreDraw() {
         Game.scoreDraw += 1;
     }
@@ -31,6 +38,7 @@ public class Game {
         return playerO;
     }
 
+
     public static TicTacToeController getTicTacToeController() {
         return ticTacToeController;
     }
@@ -40,7 +48,6 @@ public class Game {
     }
 
     public static void initBoard() {
-        scoreDraw = 0;
         ticTacToeController.toggleButton1.setGraphic(null);
         ticTacToeController.toggleButton1.setId("toggleButton1");
         ticTacToeController.toggleButton1.setOnAction(event -> {
@@ -211,6 +218,4 @@ public class Game {
         }
     }
     public static boolean player = true;
-
-
 }

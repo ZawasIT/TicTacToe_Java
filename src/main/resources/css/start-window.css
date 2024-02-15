@@ -13,11 +13,23 @@
 }
 
 .button-start {
-    -fx-background-color: -fx-secondary-color;
+    -fx-background-color: #BB5098;
     -fx-font-size: 20;
     -fx-text-fill: -fx-font-color;
 }
 
 .button-start:hover {
-    -fx-background-color: derive(-fx-secondary-color, -10%);
+    -fx-background-color: derive(#BB5098, -10%);
+}
+
+.mode-toggleButton {
+    -fx-background-radius: 25;
+    -fx-background-color: transparent;
+
+    -fx-border-color: -fx-line-color;
+    -fx-border-radius: 25;
+}
+
+.mode-toggleButton:hover {
+    -fx-background-color: derive(-fx-line-color, -15%);
 }
