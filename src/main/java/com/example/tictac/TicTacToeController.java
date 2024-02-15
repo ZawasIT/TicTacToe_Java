@@ -140,10 +140,20 @@ public class TicTacToeController implements Initializable {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load();
+            if (modeToggleButton.isSelected()) {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-light" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-dark.css")));
+            } else {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-dark" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
+            }
             AlertController alertController = fxmlLoader.getController();
             alertController.setPlayerLabel("Wygrywa "+Game.getPlayerX().getName());
 
             Stage alertStage = new Stage();
+            alertStage.setTitle("Wygrana " + Game.getPlayerX().getName());
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
@@ -154,10 +164,19 @@ public class TicTacToeController implements Initializable {
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load();
+            if (modeToggleButton.isSelected()) {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-light" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-dark.css")));
+            } else {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-dark" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
+            }
             AlertController alertController = fxmlLoader.getController();
             alertController.setPlayerLabel("Wygrywa "+Game.getPlayerO().getName());
-
             Stage alertStage = new Stage();
+            alertStage.setTitle("Wygrana " + Game.getPlayerO().getName());
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.initOwner(this.ticTacToeVbox.getScene().getWindow());
@@ -170,12 +189,20 @@ public class TicTacToeController implements Initializable {
             scoreDrawLabel.setText(String.valueOf(Game.getScoreDraw()));
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("alert.fxml"));
             VBox alertBox = fxmlLoader.load(); // Wczytaj VBox z pliku FXML
-
-            // Pobierz kontroler z FXMLLoadera, aby przekazać wynik
+            if (modeToggleButton.isSelected()) {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-light" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-dark.css")));
+            } else {
+                alertBox.getStylesheets().remove(String.valueOf(getClass().getResource("/css/global-colors-dark" +
+                        ".css")));
+                alertBox.getStylesheets().add(String.valueOf(getClass().getResource("/css/global-colors-light.css")));
+            }
             AlertController alertController = fxmlLoader.getController();
             alertController.setPlayerLabel("Remis!!!");
 
             Stage alertStage = new Stage();
+            alertStage.setTitle("Remis Tic Tac Toe");
             alertStage.setScene(new Scene(alertBox));
             alertStage.initModality(Modality.WINDOW_MODAL);
             alertStage.showAndWait();
